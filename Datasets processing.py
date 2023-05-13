@@ -126,128 +126,83 @@ df_il6_ifn_nt_kd = pd.concat([il6_nt_0,il6_nt_1,il6_nt_2,il6_nt_4,il6_nt_6,il6_n
 print(df_il6_ifn_nt_kd.shape)
 # (25218, 32)
 # %%
+df_il6_nt_kd = df_il6_ifn_nt_kd[['n_0', 'n_1', 'n_2', 'n_4', 'n_6', 'n_8', 'n_12', 'n_24', 'k_0', 'k_1', 'k_2', 'k_4', 'k_6', 'k_8', 'k_12', 'k_24']]
+df_ifn_nt_kd = df_il6_ifn_nt_kd[['ng_0', 'ng_1', 'ng_2','ng_4', 'ng_6', 'ng_8', 'ng_12', 'ng_24', 'kg_0', 'kg_1', 'kg_2','kg_4', 'kg_6', 'kg_8', 'kg_12', 'kg_24']]
+
+print(df_il6_nt_kd.shape)
+# (25218, 16)
+
+print(df_ifn_nt_kd.shape)
+# (25218, 16)
+# %%
 ### Save il6 and ifn, nt and kd before replaing NaN
 #df_il6_ifn_nt_kd.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/il6_ifn_nt+kd_NaN.csv')
 # %%
 ### Replace non-existent values with 0
-df_il6_ifn_nt_kd = df_il6_ifn_nt_kd.fillna(0)
+df_il6_nt_kd = df_il6_nt_kd.fillna(0)
+df_ifn_nt_kd = df_ifn_nt_kd.fillna(0)
 ### Save il6 and ifn nt and kd file
 #df_il6_ifn_nt_kd.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/il6_ifn_nt+kd.csv')
+df_il6_nt_kd.to_csv('il6_nt_kd.csv')
+df_ifn_nt_kd.to_csv('ifn_nt_kd.csv')
 # %%
-### combine il6 nt and knockdown
-### nt size # (16479, 1) (16546, 1) (16184, 1) (15730, 1) (15963, 1) (15860, 1) (16388, 1) (16184, 1)
-### kd size # (15562, 1) (15695, 1) (15912, 1) (15741, 1) (9382, 1) (16191, 1) (15675, 1) (15605, 1)
-### expected size = 16546
+### Remove 0 across all times and NT/KD
+df_il6_nt_kd_minus0 = df_il6_nt_kd.loc[~(df_il6_nt_kd==0).all(axis=1)]
+print(df_il6_nt_kd_minus0.shape)
+# (23091, 16)
+df_ifn_nt_kd_minus0 = df_ifn_nt_kd.loc[~(df_ifn_nt_kd==0).all(axis=1)]
+print(df_ifn_nt_kd_minus0.shape)
+# (23555, 16)
 
-df_il6_ifn_nt_kd = pd.concat([il6_nt_0, il6_nt_1,il6_nt_2,il6_nt_4,il6_nt_6,il6_nt_8,il6_nt_12,il6_nt_24,il6_kd_0,il6_kd_1,il6_kd_2,il6_kd_4,il6_kd_6,il6_kd_8,il6_kd_12,il6_kd_24], axis=1)
-print(df_il6_ifn_nt_kd.shape)
-# (23114, 16)
-df_il6_ifn_nt_kd.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/il6 nt+kd.csv')
-df_il6_ifn_nt_kd = df_il6_ifn_nt_kd.fillna(0)
+df_il6_nt_kd_minus0.to_csv('il6_nt_kd_minus0.csv')
+df_ifn_nt_kd_minus0.to_csv('ifn_nt_kd_minus0.csv')
 # %%
 import pandas as pd
-### Removes genes with all O in IL6 nt
-il6_nt = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/il6_nt.csv',index_col=0)
-print(il6_nt.shape)
-# (25218, 8)
+### Create df for noiseq
+df_il6 = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6/il6_nt_kd_minus0.csv',index_col=0)
+df_ifn = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg/ifn_nt_kd_minus0.csv',index_col=0)
 # %%
-il6_nt = il6_nt.loc[~(il6_nt==0).all(axis=1)]
-print(il6_nt.shape)
-# (21576, 8)
-il6_nt.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/il6_nt_minus0.csv')
-# %%
-### Removes genes with all O in IFNg nt
-ifn_nt = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/ifn_nt.csv',index_col=0)
-print(ifn_nt.shape)
-# (25218, 8)
-# %%
-ifn_nt = ifn_nt.loc[~(ifn_nt==0).all(axis=1)]
-print(ifn_nt.shape)
-# (21514, 8)
-ifn_nt.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/ifn_nt_minus0.csv')
-# %%
-import pandas as pd
-# %%
-### Merge IL6 nt minus 0 and kd
-il6_nt_minus0 = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/il6_nt_minus0.csv',index_col=0)
-print(il6_nt_minus0.shape)
-# (21576, 8)
-# %%
-il6_kd = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6_raw/il6_kd.csv',index_col=0)
-print(il6_kd.shape)
-# (25218, 8)
-# %%
-df_il6 = pd.merge(il6_nt_minus0, il6_kd, left_index=True, right_index=True)
-print(df_il6.shape)
-# (21576, 16)
-# %%
-df_il6.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/il6_nt_minus0_kd.csv')
-# %%
-### Merge IFNg nt minus 0 and kd
-ifn_nt_minus0 = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/ifn_nt_minus0.csv',index_col=0)
-print(ifn_nt_minus0.shape)
-# (21514, 8)
-# %%
-ifn_kd = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNG_raw/ifn_kd.csv',index_col=0)
-print(ifn_kd.shape)
-# (25218, 8)
-# %%
-df_ifn = pd.merge(ifn_nt_minus0, ifn_kd, left_index=True, right_index=True)
-print(df_ifn.shape)
-# (21514, 16)
-# %%
-df_ifn.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/ifn_nt_minus0_kd.csv')
+df_il6_0 = df_il6[['n_0','k_0']]
+df_il6_1 = df_il6[['n_1','k_1']]
+df_il6_2 = df_il6[['n_2','k_2']]
+df_il6_4 = df_il6[['n_4','k_4']]
+df_il6_6 = df_il6[['n_6','k_6']]
+df_il6_8 = df_il6[['n_8','k_8']]
+df_il6_12 = df_il6[['n_12','k_12']]
+df_il6_24 = df_il6[['n_24','k_24']]
+
 
 # %%
-df_il6.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/il6_corresponding_kd')
-df_ifn.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/ifn_corresponding_kd')
-# %%
-### Merge il6 clusters with kd
-
-il6_nt_minus0_stdev_graphia = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/Graphia graphs/il6_nt_minus0_stdev_log-attributes.csv',index_col=0)
-print(il6_nt_minus0_stdev_graphia.shape)
-# (15097, 12)
-
-il6_minus0_kd = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6_raw/il6_minus0_kd.csv',index_col=0)
-print(il6_minus0_kd.shape)
-# (21576, 8)
-
-df_il6 = pd.merge(il6_nt_minus0_stdev_graphia, il6_minus0_kd, left_index=True, right_index=True)
-print(df_il6.shape)
-# (15097, 20)
-df_il6.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6_raw/il6_minus0_stdev_kd_clustered.csv')
-# %%
-### Merge ifng clusters with kd
-
-ifn_nt_minus0_stdev_graphia = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/Graphia graphs/ifn_nt_minus0_stdev_log-attributes.csv',index_col=0)
-print(ifn_nt_minus0_stdev_graphia.shape)
-# (15181, 12)
-
-ifn_minus0_kd = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg_raw/ifn_minus0_kd.csv',index_col=0)
-print(ifn_minus0_kd.shape)
-# (21514, 8)
-
-df_ifn = pd.merge(ifn_nt_minus0_stdev_graphia, ifn_minus0_kd, left_index=True, right_index=True)
-print(df_ifn.shape)
-# (15181, 20)
-df_ifn.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg_raw/ifn_minus0_stdev_kd_clustered.csv')
-# %%
+df_il6_0.to_csv('il6_0hr.txt')
+df_il6_1.to_csv('il6_1hr.txt')
+df_il6_2.to_csv('il6_2hr.txt')
+df_il6_4.to_csv('il6_4hr.txt')
+df_il6_6.to_csv('il6_6hr.txt')
+df_il6_8.to_csv('il6_8hr.txt')
+df_il6_12.to_csv('il6_12hr.txt')
+df_il6_24.to_csv('il6_24hr.txt')
 
 # %%
-# Save IL6 genes with all 0
-import pandas as pd 
-df_il6 = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6_raw/il6_nt.csv',index_col=0)
-df_il6 = df_il6[df_il6.eq(0).all(1)]
-print(df_il6.shape)
-# (3642, 8)
-df_il6.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6_raw/il6_non_expressed_genes.csv')
-# %%
-# Save IL6 genes with all 0
 
-df_ifn = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg_raw/ifn_nt.csv',index_col=0)
-df_ifn = df_ifn[df_ifn.eq(0).all(1)]
-print(df_ifn.shape)
-# (3704, 8)
-df_ifn.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg_raw/ifng_non_expressed_genes.csv')
+df_ifn_0 = df_ifn[['ng_0','kg_0']]
+df_ifn_1 = df_ifn[['ng_1','kg_1']]
+df_ifn_2 = df_ifn[['ng_2','kg_2']]
+df_ifn_4 = df_ifn[['ng_4','kg_4']]
+df_ifn_6 = df_ifn[['ng_6','kg_6']]
+df_ifn_8 = df_ifn[['ng_8','kg_8']]
+df_ifn_12 = df_ifn[['ng_12','kg_12']]
+df_ifn_24 = df_ifn[['ng_24','kg_24']]
+
+# %%
+df_ifn_0.to_csv('ifn_0hr.txt')
+df_ifn_1.to_csv('ifn_1hr.txt')
+df_ifn_2.to_csv('ifn_2hr.txt')
+df_ifn_4.to_csv('ifn_4hr.txt')
+df_ifn_6.to_csv('ifn_6hr.txt')
+df_ifn_8.to_csv('ifn_8hr.txt')
+df_ifn_12.to_csv('ifn_12hr.txt')
+df_ifn_24.to_csv('ifn_24hr.txt')
+
+
 
 # %%
