@@ -217,6 +217,6 @@ df_ifn_2 = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prce
 df_il6_kd = pd.merge(df_il6, df_il6_2, left_index=True, right_index=True)
 df_ifn_kd = pd.merge(df_ifn, df_ifn_2, left_index=True, right_index=True)
 # %%
-df_il6_kd.to_csv('il6_kd_minus0_stdev.csv')
-df_ifn_kd.to_csv('ifn_kd_minus0_stdev.csv')
+df_il6_kd.to_csv('il6_nt_kd_minus0_stdev.csv')
+df_ifn_kd.to_csv('ifn_nt_kd_minus0_stdev.csv')
 # %%
