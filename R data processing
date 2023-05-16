@@ -1,0 +1,16 @@
+# %%
+
+readfile <- read.csv("/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg/Data/ifn_nt_kd_Log2(FPKM+1)_minus0_stdev_attribute.csv", row.names = 1)
+
+# %%
+
+# %%
+### Scale pareto
+library('IMIFA')
+
+df_scaled <- pareto_scale(readfile, centering = TRUE)
+# %%
+
+# %%
+write.csv(df_scaled, "ifn_pareto scaling.csv", row.names=TRUE)
+# %%
