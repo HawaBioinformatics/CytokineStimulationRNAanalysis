@@ -208,11 +208,11 @@ df_ifn_24.to_csv('ifn_24hr.txt')
 # %%
 import pandas as pd
 
-df_il6= pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Graphia graphs/il6_nt_minus0_stdev-attributes.csv',index_col=0)
-df_ifn = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Graphia graphs/ifn_nt_minus0_stdev-attributes.csv',index_col=0)
+df_il6= pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Graphia graphs/il6_KDvsNT_logFC_stdev-attributes.csv',index_col=0)
+df_ifn = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Graphia graphs/ifn_KDvsNT_logFC_stdev-attributes.csv',index_col=0)
 
-df_il6_2 = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6/il6_nt_kd_minus0.csv',index_col=0)
-df_ifn_2 = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg/ifn_nt_kd_minus0.csv',index_col=0)
+df_il6_2 = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6/Data/il6_nt_kd_minus0.csv',index_col=0)
+df_ifn_2 = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg/Data/ifn_nt_kd_minus0.csv',index_col=0)
 # %%
 df_il6_kd = pd.merge(df_il6, df_il6_2, left_index=True, right_index=True)
 df_ifn_kd = pd.merge(df_ifn, df_ifn_2, left_index=True, right_index=True)
