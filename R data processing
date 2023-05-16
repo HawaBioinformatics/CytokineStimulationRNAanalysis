@@ -1,6 +1,6 @@
 # %%
 
-readfile <- read.csv("/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg/Data/ifn_nt_kd_Log2(FPKM+1)_minus0_stdev_attribute.csv", row.names = 1)
+readfile <- read.csv("/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6/Data/il6_nt_kd_Log(FPKM+1)_minus0_stdev._attribute.csv", row.names = 1)
 
 # %%
 
@@ -12,5 +12,5 @@ df_scaled <- pareto_scale(readfile, centering = TRUE)
 # %%
 
 # %%
-write.csv(df_scaled, "ifn_pareto scaling.csv", row.names=TRUE)
+write.csv(df_scaled, "il6_pareto_scaling.csv", row.names=TRUE)
 # %%
