@@ -220,3 +220,16 @@ df_ifn_kd = pd.merge(df_ifn, df_ifn_2, left_index=True, right_index=True)
 df_il6_kd.to_csv('il6_nt_kd_FPKM+1_minus0_stdev.csv')
 df_ifn_kd.to_csv('ifn_nt_kd_FPKM+1_minus0_stdev.csv')
 # %%
+import pandas as pd
+df = pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IL6/Data/il6_nt_kd_FPKM+1.csv',index_col=0)
+
+max = df.to_numpy().max()
+min = df.to_numpy().min()
+print("1")
+print(min,max)
+# %%
+dfa = df.loc[['Cluster nt 1', 'Cluster kd 1']]
+max = dfa.to_numpy().max()
+min = dfa.to_numpy().min()
+print("1")
+print(min,max)
