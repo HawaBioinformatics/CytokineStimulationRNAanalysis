@@ -233,3 +233,12 @@ max = dfa.to_numpy().max()
 min = dfa.to_numpy().min()
 print("1")
 print(min,max)
+# %%
+import pandas as pd
+
+df1=pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg/Data/ifn_log2(FC)_KDvsNT_stdev0.8-attributes.csv', index_col=0)
+df2=pd.read_csv(r'/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg/Data/ifn_logFC_KDvsNT.csv', index_col=0)
+
+df_il6_Fc = pd.merge(df1, df2, left_index=True, right_index=True)
+df_il6_Fc.to_csv('/Users/hawacoulibaly/Documents/TIME COURSE/CURRENT/Prcessed data/IFNg/Data/IFN_fc.csv')
+# %%
