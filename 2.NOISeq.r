@@ -1,3 +1,6 @@
+# This pipeline applies NOISeq for differential expression anylsis without replicates.
+
+
 # Location of packages download
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
