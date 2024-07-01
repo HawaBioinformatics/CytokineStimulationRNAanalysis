@@ -1,4 +1,9 @@
 # %%
+# This step involves processing the raw datasets for aggregation and normalization
+# Outputs of this pipeline generate .csv files with normalized gene expression at various time points (0, 1,2,4,6,8,12,and 24 hours)
+
+
+# %%
 import pandas as pd 
 # %%
 ### process 0,1,2,4,6,8,12,24 hrs for IL6 non-target
